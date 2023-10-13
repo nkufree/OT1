@@ -7,7 +7,6 @@ struct DFANode
 {
     NODETYPE nodeType;
     int id;
-    std::map<char, DFANode*> nextNode;
     DFANode(NODETYPE t, int id): nodeType(t),id(id) {};
 };
 

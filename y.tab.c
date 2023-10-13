@@ -1421,11 +1421,9 @@ int yylex()
             return SYM;
         }
         else    
+        {
             return t;
-        // else{
-        //     yylval = oneNFA((char)t);
-        //     return SYM;
-        // }
+        }
     }
 }
 
