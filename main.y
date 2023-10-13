@@ -15,7 +15,7 @@ void yyerror(const char* s);
 %}
 
 //TODO:给每个符号定义一个单词类别
-%token ALPHA DIGIT
+%token ALPHA DIGIT SYM
 %left '|' '-'
 %%
 
@@ -57,6 +57,7 @@ expr    :       expr '*'        {$$ = repeatNFA($1);}
 
 onechar :       DIGIT       {$$ = $1;}
         |       ALPHA       {$$ = $1;}
+        |       SYM         {$$ = $1;}
         ;
 
 %%
@@ -87,8 +88,17 @@ int yylex()
                 yylval = oneNFA((char)t);
                 return ALPHA;
             }
+        }else if(t == ';' || t == '|' || t == '(' || t == ')' || t == '*')
+        {
+            return t;
         }
-        else{
+        else if(isgraph(t))
+        {
+            yylval = oneNFA((char)t);
+            return SYM;
+        }
+        else    
+        {
             return t;
         }
     }
