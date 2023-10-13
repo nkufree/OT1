@@ -1,0 +1,5 @@
+b*a((b|\0)(a|b|\0));
+ababab;
+a;
+ab;
+abc;
