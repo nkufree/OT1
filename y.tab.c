@@ -126,7 +126,8 @@ extern int yydebug;
     YYUNDEF = 257,                 /* "invalid token"  */
     ALPHA = 258,                   /* ALPHA  */
     DIGIT = 259,                   /* DIGIT  */
-    SYM = 260                      /* SYM  */
+    SYM = 260,                     /* SYM  */
+    LINEEND = 261                  /* LINEEND  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -138,6 +139,7 @@ extern int yydebug;
 #define ALPHA 258
 #define DIGIT 259
 #define SYM 260
+#define LINEEND 261
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -164,9 +166,9 @@ enum yysymbol_kind_t
   YYSYMBOL_ALPHA = 3,                      /* ALPHA  */
   YYSYMBOL_DIGIT = 4,                      /* DIGIT  */
   YYSYMBOL_SYM = 5,                        /* SYM  */
-  YYSYMBOL_6_ = 6,                         /* '|'  */
-  YYSYMBOL_7_ = 7,                         /* '-'  */
-  YYSYMBOL_8_ = 8,                         /* ';'  */
+  YYSYMBOL_LINEEND = 6,                    /* LINEEND  */
+  YYSYMBOL_7_ = 7,                         /* '|'  */
+  YYSYMBOL_8_ = 8,                         /* '-'  */
   YYSYMBOL_9_ = 9,                         /* '*'  */
   YYSYMBOL_10_ = 10,                       /* '('  */
   YYSYMBOL_11_ = 11,                       /* ')'  */
@@ -503,7 +505,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   21
+#define YYLAST   22
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  12
@@ -515,7 +517,7 @@ union yyalloc
 #define YYNSTATES  19
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   260
+#define YYMAXUTOK   261
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -533,15 +535,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      10,    11,     9,     2,     2,     7,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     8,
+      10,    11,     9,     2,     2,     8,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     6,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     7,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -555,7 +557,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5
+       5,     6
 };
 
 #if YYDEBUG
@@ -580,7 +582,7 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "ALPHA", "DIGIT",
-  "SYM", "'|'", "'-'", "';'", "'*'", "'('", "')'", "$accept", "lines",
+  "SYM", "LINEEND", "'|'", "'-'", "'*'", "'('", "')'", "$accept", "lines",
   "regex", "join", "expr", "onechar", YY_NULLPTR
 };
 
@@ -591,7 +593,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-8)
+#define YYPACT_NINF (-10)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -605,8 +607,8 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -8,     0,    -8,    -8,    -8,    -8,    -8,    11,    -7,     1,
-       8,    -8,     9,    -8,    11,    -8,    -8,    -8,    -8
+     -10,     0,   -10,   -10,   -10,   -10,   -10,    12,    -5,    11,
+       4,   -10,    -9,   -10,    12,   -10,   -10,   -10,   -10
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -621,7 +623,7 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -8,    -8,    -5,    -4,    -8,    -8
+     -10,   -10,     5,     1,   -10,   -10
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -635,24 +637,24 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       2,    13,    12,     3,     4,     5,    16,    14,     6,    18,
-       7,     3,     4,     5,     3,     4,     5,    15,     7,     0,
-      17,     7
+       2,    13,    17,     3,     4,     5,     6,     3,     4,     5,
+       7,    16,    12,    15,     7,     3,     4,     5,    14,    18,
+       0,     0,     7
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     8,     7,     3,     4,     5,    10,     6,     8,    14,
-      10,     3,     4,     5,     3,     4,     5,     9,    10,    -1,
-      11,    10
+       0,     6,    11,     3,     4,     5,     6,     3,     4,     5,
+      10,    10,     7,     9,    10,     3,     4,     5,     7,    14,
+      -1,    -1,    10
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    13,     0,     3,     4,     5,     8,    10,    14,    15,
-      16,    17,    14,     8,     6,     9,    15,    11,    14
+       0,    13,     0,     3,     4,     5,     6,    10,    14,    15,
+      16,    17,    14,     6,     7,     9,    15,    11,    14
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -1129,67 +1131,67 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* lines: lines regex ';'  */
+  case 2: /* lines: lines regex LINEEND  */
 #line 23 "main.y"
-                                { 
+                                    { 
             printNFA(yyvsp[-1]);
             DFA* dfa = NFA2DFA(yyvsp[-1]);
             printDFA(dfa); 
             printDFA(minDFA(dfa));
             }
-#line 1141 "y.tab.c"
+#line 1143 "y.tab.c"
     break;
 
   case 5: /* regex: join '|' regex  */
 #line 33 "main.y"
                                {yyval = joinNFA(yyvsp[-2], yyvsp[0]);}
-#line 1147 "y.tab.c"
+#line 1149 "y.tab.c"
     break;
 
   case 7: /* join: expr join  */
 #line 37 "main.y"
                                 {yyval = catNFA(yyvsp[-1], yyvsp[0]);}
-#line 1153 "y.tab.c"
+#line 1155 "y.tab.c"
     break;
 
   case 9: /* expr: expr '*'  */
 #line 41 "main.y"
                                 {yyval = repeatNFA(yyvsp[-1]);}
-#line 1159 "y.tab.c"
+#line 1161 "y.tab.c"
     break;
 
   case 10: /* expr: '(' regex ')'  */
 #line 44 "main.y"
                                  {yyval = yyvsp[-1];}
-#line 1165 "y.tab.c"
+#line 1167 "y.tab.c"
     break;
 
   case 11: /* expr: onechar  */
 #line 46 "main.y"
                                 {yyval = yyvsp[0];}
-#line 1171 "y.tab.c"
+#line 1173 "y.tab.c"
     break;
 
   case 12: /* onechar: DIGIT  */
 #line 58 "main.y"
                             {yyval = yyvsp[0];}
-#line 1177 "y.tab.c"
+#line 1179 "y.tab.c"
     break;
 
   case 13: /* onechar: ALPHA  */
 #line 59 "main.y"
                             {yyval = yyvsp[0];}
-#line 1183 "y.tab.c"
+#line 1185 "y.tab.c"
     break;
 
   case 14: /* onechar: SYM  */
 #line 60 "main.y"
                             {yyval = yyvsp[0];}
-#line 1189 "y.tab.c"
+#line 1191 "y.tab.c"
     break;
 
 
-#line 1193 "y.tab.c"
+#line 1195 "y.tab.c"
 
       default: break;
     }
@@ -1392,9 +1394,12 @@ int yylex()
     int t;
     while(1){
         t=getchar();
-        if(t==' '||t=='\t'||t=='\n'){
+        if(t==' '||t=='\t'){
             //do noting
-        }else if(isalpha(t)){
+        }else if(t == '\n' || t == '\r'){
+            return LINEEND;
+        }
+        else if(isalpha(t)){
             yylval = oneNFA((char)t);
             return ALPHA;
         }else if(isdigit(t)){
@@ -1411,7 +1416,7 @@ int yylex()
                 yylval = oneNFA((char)t);
                 return ALPHA;
             }
-        }else if(t == ';' || t == '|' || t == '(' || t == ')' || t == '*')
+        }else if( t == '|' || t == '(' || t == ')' || t == '*')
         {
             return t;
         }

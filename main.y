@@ -15,18 +15,18 @@ void yyerror(const char* s);
 %}
 
 //TODO:给每个符号定义一个单词类别
-%token ALPHA DIGIT SYM
+%token ALPHA DIGIT SYM LINEEND
 %left '|' '-'
 %%
 
 
-lines   :       lines regex ';' { 
+lines   :       lines regex LINEEND { 
             printNFA($2);
             DFA* dfa = NFA2DFA($2);
             printDFA(dfa); 
             printDFA(minDFA(dfa));
             }
-        |       lines ';'
+        |       lines LINEEND
         |
         ;
 
@@ -69,9 +69,12 @@ int yylex()
     int t;
     while(1){
         t=getchar();
-        if(t==' '||t=='\t'||t=='\n'){
+        if(t==' '||t=='\t'){
             //do noting
-        }else if(isalpha(t)){
+        }else if(t == '\n' || t == '\r'){
+            return LINEEND;
+        }
+        else if(isalpha(t)){
             yylval = oneNFA((char)t);
             return ALPHA;
         }else if(isdigit(t)){
@@ -88,7 +91,7 @@ int yylex()
                 yylval = oneNFA((char)t);
                 return ALPHA;
             }
-        }else if(t == ';' || t == '|' || t == '(' || t == ')' || t == '*')
+        }else if( t == '|' || t == '(' || t == ')' || t == '*')
         {
             return t;
         }
